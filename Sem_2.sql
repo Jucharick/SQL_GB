@@ -58,7 +58,7 @@ ALTER TABLE movies -- Потомок
                 -- NO ACTION - останется producer_id (просто цифры, связи не будет)
                 -- RESTRICT - возвращаем ошибку при удалении из таблицы-предка (для удаления удалить все сылки и только потом удалить запись из таблицы-предка
                 -- SET DEFAULT - оставляем значение DEFAULT (например, при создании таблицы атрибут по дефолту заполняется как число 10)
-      ON UPDATE CASCADE;
+      ON UPDATE CASCADE; -- если обновим значение в предке в наследнике тоже поменяется
 
 
 -- DML: insert
@@ -73,9 +73,10 @@ VALUES
 -- Заполняем ограниченное количество столбцов
 INSERT movies -- В таком случае заполняются АБСОЛЮТНО все столбцы из таблицы movie
 VALUES 
-  (2, "Игры Разума", "A Beautiful Mind", 2001, 135, "...");
+  (2, "Игры Разума", "A Beautiful Mind", 2001, 135, "...", 1);
 
-
+TRUNCATE movies; -- очищает всю таблицу, нельзя восстановить, работает быстрее
+DELETE FROM movies where id = 2; -- очищает всю таблицу или одну/несколько записей по условию, можно восстановить, работает медленнее
 SELECT * FROM movies;
 SELECT * FROM producers;
 
@@ -105,7 +106,6 @@ RENAME TABLE movies TO cinema;
 -- TRUNCATE (очистка таблицы от данных)
 TRUNCATE cinema;
 
-
 INSERT INTO cinema (title, title_eng, year_movie, count_min, producer_id, storyline)
 VALUES 
   ('Игры разума', 'A Beautiful Mind', 2001, 135, 1, 'От всемирной известности до греховных глубин — все это познал на своей шкуре Джон Форбс Нэш-младший. Математический гений, он на заре своей карьеры сделал титаническую работу в области теории игр, которая перевернула этот раздел математики и практически принесла ему международную известность. Однако буквально в то же время заносчивый и пользующийся успехом у женщин Нэш получает удар судьбы, который переворачивает уже его собственную жизнь.'),
@@ -116,8 +116,8 @@ VALUES
 
 
 ALTER TABLE cinema
-ADD test INT DEFAULT ROUND(RAND() * 1000), -- Добавляем столбец test самой последней колонкой и задаем дефолтное значение 100
-ADD price INT DEFAULT ROUND(RAND() * 200) AFTER id; -- Столбец price находится ПОСЛЕ столбца id
+ADD test INT DEFAULT 100, -- Добавляем столбец test самой последней колонкой и задаем дефолтное значение 100
+ADD price INT DEFAULT 250 AFTER id; -- Столбец price находится ПОСЛЕ столбца id
 
 
 ALTER TABLE cinema
@@ -128,8 +128,7 @@ SELECT * FROM cinema;
 -- UPDATE 
 UPDATE cinema
 SET price = price + 150
-WHERE title LIKE '%Джон%';
-
+WHERE producer_id = 3;
 
 DELETE FROM cinema
 WHERE title = 'Криминальное чтиво';
@@ -177,6 +176,8 @@ FROM cinema;
 
 
 /* Пусть в таблице users поля created_at и updated_at оказались незаполненными. Заполните их текущими датой и временем. */
+
+CREATE DATABASE shop;
 
 -- Выбираем базу данных shop
 USE shop;
