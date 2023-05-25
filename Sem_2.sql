@@ -26,27 +26,38 @@ USE lesson2; -- Подключаемся к конкретной БД
 -- 2. Создание таблицы
 CREATE TABLE IF NOT EXISTS movies (
   id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  title VARCHAR(45) NOT NULL,
-  title_eng VARCHAR(45) NOT NULL,
+  title VARCHAR(70) NOT NULL,
+  title_eng VARCHAR(70),
   year_movie YEAR,
-  count_min INT UNSIGNED,
+  count_min INT UNSIGNED, -- UNSIGNED убираем отрицательные значения
   storyline TEXT,
   producer_id INT UNSIGNED NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS producers (
   id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  name VARCHAR(45) NOT NULL
+  name VARCHAR(70) NOT NULL
 );
 
+SELECT * FROM movies;
+DROP TABLE movies;
+SELECT * FROM producers;
+DROP TABLE producers;
 
-DESC movies;
+DESCRIBE movies; -- запрашиваем структуру таблицы
+DESC movies; -- диалект MySQL
 
 -- 2.1 Добавление связей
 ALTER TABLE movies -- Потомок
   ADD CONSTRAINT movies_producer_id_fk 
     FOREIGN KEY (producer_id) REFERENCES producers(id) -- Предок
-	  ON DELETE SET NULL -- CASCADE, SET NULL, NO ACTION, RESTRICT, SET DEFAULT
+	  ON DELETE NO ACTION 
+      -- при удалении кортежа из таблицы-предка в таблице потомке:
+				-- CASCADE - запись удаляется каскадом (во всех таблицах-потомках)
+                -- SET NULL - в поле producer_id подставляется NULL
+                -- NO ACTION - останется producer_id (просто цифры, связи не будет)
+                -- RESTRICT - возвращаем ошибку при удалении из таблицы-предка (для удаления удалить все сылки и только потом удалить запись из таблицы-предка
+                -- SET DEFAULT - оставляем значение DEFAULT (например, при создании таблицы атрибут по дефолту заполняется как число 10)
       ON UPDATE CASCADE;
 
 
@@ -66,7 +77,7 @@ VALUES
 
 
 SELECT * FROM movies;
-
+SELECT * FROM producers;
 
 -- Заполним таблицу producers
 INSERT INTO producers (name) 
