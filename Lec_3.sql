@@ -3,6 +3,9 @@ use gb_db;
 SELECT * FROM Products
 ORDER BY Price;
 
+SELECT * FROM Products
+ORDER BY Price DESC;
+
 SELECT ProductName, ProductCount * Price AS TotalSum
 FROM Products
 ORDER BY TotalSum;
@@ -105,5 +108,6 @@ SELECT Manufacturer, COUNT(*) AS Models, SUM(ProductCount) AS Units
 FROM Products
 WHERE Price * ProductCount > 80000
 GROUP BY Manufacturer
-HAVING COUNT(*) > 1;
+HAVING SUM(ProductCount) > 2
+ORDER BY Units DESC;
 
