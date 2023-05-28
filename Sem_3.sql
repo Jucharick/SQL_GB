@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS tbl;
 CREATE TABLE tbl (
   x INT,
   y INT,
-  summ INT AS (x + y) STORED
+  summ INT AS (x + y) STORED -- STORED - вычисляется один раз и хранится в памяти, без этого аргумента вичисляемый столбец при каждом запросе вчисляетчя, что может быть емко по времени
 );
 
 INSERT INTO
