@@ -71,16 +71,39 @@ COUNT: вычисляет количество строк в запросе
 */
 SELECT AVG(price) AS Average_price
 FROM Products;
+
 SELECT SUM(ProductCount) AS ProductCount
 FROM Products;
+
 SELECT MIN(price) AS Average_price
 FROM Products;
 SELECT MAX(price) AS Average_price
 FROM Products;
+
+SELECT MAX(price) AS Average_price_Apple
+FROM Products
+WHERE Manufacturer = 'Apple';
+
 SELECT COUNT(*) AS Count_line
 FROM Products;
 
 
+/*
+Оператор HAVING позволяет выполнить фильтрацию групп, то
+есть определяет, какие группы будут включены в выходной
+результат.Использование HAVING во многом аналогично
+применению WHERE. Только если WHERE применяется для
+фильтрации строк, то HAVING - для фильтрации групп.
+*/
 
+SELECT Manufacturer, COUNT(*) AS ModelsCount
+FROM Products
+GROUP BY Manufacturer
+HAVING COUNT(*) > 1;
 
+SELECT Manufacturer, COUNT(*) AS Models, SUM(ProductCount) AS Units
+FROM Products
+WHERE Price * ProductCount > 80000
+GROUP BY Manufacturer
+HAVING COUNT(*) > 1;
 
