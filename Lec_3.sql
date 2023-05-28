@@ -21,6 +21,12 @@ DESC
 порядке убывания по expressions
 */
 
+SELECT * FROM Products
+LIMIT 2,3; -- пропускаем 2 записи и выводим 3
+
+SELECT * FROM Products
+LIMIT 3; -- выводим 3 (по умолчанию)
+
 /*
 Оператор LIMIT
 Оператор LIMIT позволяет извлечь определённый диапазон
@@ -31,8 +37,50 @@ LIMIT - MySQL, PostgreSQL, SQLite
 FETCH FIRST - Oracle
 */
 
-SELECT * FROM Products
-LIMIT 2,3; -- пропускаем 2 записи и выводим 3
 
-SELECT * FROM Products
-LIMIT 3; -- выводим 3 (по умолчанию)
+-- Уникальные значения - distinct
+SELECT DISTINCT Manufacturer FROM Products;
+
+
+/*
+GROUP BY
+Оператор GROUP BY определяет, как строки будут
+группироваться.
+Например, сгруппируем товары по производителю
+*/
+SELECT Manufacturer, COUNT(*) AS ModelsCount
+FROM Products
+GROUP BY Manufacturer;
+/*
+Первый столбец в выражении SELECT - Manufacturer
+представляет название группы, а второй столбец - ModelsCount
+представляет результат функции Count, которая вычисляет
+количество строк в группе.
+*/
+
+
+/*
+Агрегатные функции — count, sum, avg, обработка Null
+Агрегатные функции вычисляют некоторые скалярные значения
+в наборе строк. 
+AVG: вычисляет среднее значение
+SUM: вычисляет сумму значений
+MIN: вычисляет наименьшее значение
+MAX: вычисляет наибольшее значение
+COUNT: вычисляет количество строк в запросе
+*/
+SELECT AVG(price) AS Average_price
+FROM Products;
+SELECT SUM(ProductCount) AS ProductCount
+FROM Products;
+SELECT MIN(price) AS Average_price
+FROM Products;
+SELECT MAX(price) AS Average_price
+FROM Products;
+SELECT COUNT(*) AS Count_line
+FROM Products;
+
+
+
+
+
