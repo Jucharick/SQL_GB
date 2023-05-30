@@ -201,7 +201,7 @@ SELECT *
 FROM employee_tbl;
 
 
-SELECT name 
+SELECT name -- нельзя вывести все поля, т.к. все поля, кроме поля name имеют различные данные и их нельзя сруппировать 
 FROM employee_tbl
 GROUP BY name;
 
