@@ -303,9 +303,9 @@ SELECT
   COUNT(1) AS count_group,
   SUM(daily_typing_pages) AS sum_daily_typing_pages
 FROM employee_tbl
-WHERE mployee_id <> 3
+WHERE employee_id <> 3
 GROUP BY month_name
-WITH ROLLUP
+WITH ROLLUP -- строка итогов
 HAVING sum_daily_typing_pages > 300
 ORDER BY sum_daily_typing_pages DESC;
 
@@ -315,5 +315,5 @@ SELECT
   COUNT(*) AS count
 FROM employee_tbl 
 GROUP BY decade
-WITH ROLLUP
+WITH ROLLUP -- строка итогов
 ORDER BY count DESC;
