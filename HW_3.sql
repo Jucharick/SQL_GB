@@ -80,7 +80,9 @@ FROM salespeople;
 
 -- 2. Напишите команду SELECT, которая вывела бы оценку(rating), сопровождаемую именем
 -- каждого заказчика в городе San Jose. (“заказчики”)
-SELECT * FROM customers;
+SELECT rating, cname
+FROM customers
+WHERE city = 'SanJose';
 
 -- 3. Напишите запрос, который вывел бы значения snum всех продавцов из таблицы заказов без
 -- каких бы то ни было повторений. (уникальные значения в “snum“ “Продавцы”)
@@ -90,7 +92,9 @@ FROM orders;
 
 -- 4*. Напишите запрос, который бы выбирал заказчиков, чьи имена начинаются с буквы G.
 -- Используется оператор "LIKE": (“заказчики”) https://dev.mysql.com/doc/refman/8.0/en/string-comparisonfunctions.html
-
+SELECT *
+FROM customers
+WHERE cname LIKE 'G%';
 
 -- 5. Напишите запрос, который может дать вам все заказы со значениями суммы выше чем $1,000.
 -- (“Заказы”, “amt” - сумма)
@@ -147,11 +151,30 @@ VALUES
 SELECT * FROM staff;
 
 -- 1. Отсортируйте поле “зарплата” в порядке убывания и возрастания
+SELECT * 
+FROM staff
+ORDER BY salary DESC;
+
+SELECT * 
+FROM staff
+ORDER BY salary;
 
 
 -- 2. ** Отсортируйте по возрастанию поле “Зарплата” и выведите 5 строк с
 -- наибольшей заработной платой (возможен подзапрос)
+SELECT * 
+FROM (SELECT * FROM staff ORDER BY salary DESC LIMIT 5) AS salary 
+ORDER BY salary;
 
 
 -- 3. Выполните группировку всех сотрудников по специальности ,
 -- суммарная зарплата которых превышает 100000
+SELECT 
+	MIN(salary) AS "Мин зп",
+    MAX(salary) AS "Макс зп",
+    ROUND(AVG(salary),2) AS "Средняя зп",
+    COUNT(salary) AS "Количество сотрудников",
+    SUM(salary) AS "Суммарная зп"
+FROM staff
+GROUP BY post
+HAVING SUM(salary) > 100000;
