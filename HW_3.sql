@@ -2,6 +2,17 @@ use gb_db;
 
 -- Часть 1
 
+-- Создание таблицы
+CREATE TABLE IF NOT EXISTS salespeople (
+  id INT AUTO_INCREMENT PRIMARY KEY, 
+  snum INT, 
+  sname VARCHAR(45), 
+  city VARCHAR(45), 
+  comm FLOAT
+);
+
+-- Заполнение данными
+
 INSERT INTO salespeople(snum, sname, city, comm)
 VALUES
 (1001, "Peel", "London", 0.12),
@@ -10,6 +21,19 @@ VALUES
 (1007, "Rifkin", "Barcelona", 0.15),
 (1003, "Axelrod", "New York", 0.10);
 
+SELECT * FROM salespeople;
+
+-- Создание таблицы
+CREATE TABLE IF NOT EXISTS customers (
+  id INT AUTO_INCREMENT PRIMARY KEY, 
+  cnum INT, 
+  cname VARCHAR(45), 
+  city VARCHAR(45), 
+  rating INT,
+  snum INT NOT NULL
+);
+
+-- Заполнение данными
 INSERT INTO customers(cnum, cname, city, rating, snum)
 VALUES
 (2001, "Hoffman", "London", 100, 1001),
@@ -20,29 +44,48 @@ VALUES
 (2008, "Cisneros", "SanJose", 300, 1007),
 (2007, "Pereira", "Rome", 100, 1004);
 
+SELECT * FROM customers;
+
+-- Создание таблицы
+DROP TABLE orders;
+CREATE TABLE IF NOT EXISTS orders (
+  id INT AUTO_INCREMENT PRIMARY KEY, 
+  onum INT, 
+  amt FLOAT,
+  odate DATE,
+  cnum INT NOT NULL,
+  snum INT NOT NULL
+);
+
+-- Заполнение данными
 INSERT INTO orders(onum, amt, odate, cnum, snum)
 VALUES
-(3001, 18.69, 10/03/1990, 2008, 1007),
-(3003, 767.19, 10/03/1990, 2001, 1001),
-(3002, 1900.10, 10/03/1990, 2007, 1004),
-(3005, 5160.45, 10/03/1990, 2003, 1002),
-(3006, 1098.16, 10/03/1990, 2008, 1007),
-(3009, 1713.23, 10/04/1990, 2002, 1003),
-(3007, 75.75, 10/04/1990, 2004, 1002),
-(3008, 4723.00, 10/05/1990, 2006, 1001),
-(3010, 1309.95, 10/06/1990, 2004, 1002),
-(3011, 9891.88, 10/06/1990, 2006, 1001);
+(3001, 18.69, '1990-03-10', 2008, 1007),
+(3003, 767.19, '1990-03-10', 2001, 1001),
+(3002, 1900.10, '1990-03-10', 2007, 1004),
+(3005, 5160.45, '1990-03-10', 2003, 1002),
+(3006, 1098.16, '1990-03-10', 2008, 1007),
+(3009, 1713.23, '1990-04-10', 2002, 1003),
+(3007, 75.75, '1990-04-10', 2004, 1002),
+(3008, 4723.00, '1990-05-10', 2006, 1001),
+(3010, 1309.95, '1990-06-10', 2004, 1002),
+(3011, 9891.88, '1990-06-10', 2006, 1001);
+
+SELECT * FROM orders;
 
 -- 1. Напишите запрос, который вывел бы таблицу со столбцами в следующем порядке: city, sname,
 -- snum, comm. (к первой или второй таблице, используя SELECT)
-
+SELECT city, sname, snum, comm 
+FROM salespeople;
 
 -- 2. Напишите команду SELECT, которая вывела бы оценку(rating), сопровождаемую именем
 -- каждого заказчика в городе San Jose. (“заказчики”)
-
+SELECT * FROM customers;
 
 -- 3. Напишите запрос, который вывел бы значения snum всех продавцов из таблицы заказов без
 -- каких бы то ни было повторений. (уникальные значения в “snum“ “Продавцы”)
+SELECT DISTINCT snum
+FROM orders;
 
 
 -- 4*. Напишите запрос, который бы выбирал заказчиков, чьи имена начинаются с буквы G.
@@ -51,14 +94,22 @@ VALUES
 
 -- 5. Напишите запрос, который может дать вам все заказы со значениями суммы выше чем $1,000.
 -- (“Заказы”, “amt” - сумма)
+SELECT *
+FROM orders
+WHERE amt > 1000;
 
 
 -- 6. Напишите запрос который выбрал бы наименьшую сумму заказа.
 -- (Из поля “amt” - сумма в таблице “Заказы” выбрать наименьшее значение)
-
+SELECT MIN(amt) AS Min_order
+FROM orders;
 
 -- 7. Напишите запрос к таблице “Заказчики”, который может показать всех заказчиков, у которых
 -- рейтинг больше 100 и они находятся не в Риме.
+SELECT * 
+FROM customers
+WHERE rating > 100 AND city != 'Rome';
+
 
 -- Часть 2
 
