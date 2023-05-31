@@ -23,7 +23,7 @@ SELECT * FROM sales;
 -- с использованием CASE
 SELECT id AS 'id заказа', -- Перед CASE ставится запятая
 CASE
-	WHEN count_product < 100 THEN "Маленький заказ"
+	WHEN count_product >= 0 AND count_product < 100 THEN "Маленький заказ"
     WHEN count_product >= 100 AND count_product <= 300 THEN "Средний заказ"
 	WHEN count_product > 300 THEN "Большой заказ"
     ELSE "Нет данных"
@@ -33,7 +33,7 @@ FROM sales;
 -- с использованием IF
 SELECT
 	id AS 'id заказа',
-    IF(count_product < 100, "Маленький заказ", 
+    IF(count_product BETWEEN 0 AND 99, "Маленький заказ", 
 		IF(count_product BETWEEN 100 AND 300, "Средний заказ",
 			IF(count_product > 300, "Большой заказ", "Нет данных")))
 	AS 'Тип заказа'
