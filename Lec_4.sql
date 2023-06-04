@@ -260,11 +260,23 @@ SELECT users.firstname, users.lastname, users.email, messages.from_user_id, mess
 FROM users
 LEFT JOIN messages ON users.id = messages.from_user_id;
 
+SELECT C.cnum, C.cname, C.city, C.rating, C.snum, P.ProductName, P.ProductName, P.ProductCount, P.Price
+FROM customers AS C
+LEFT JOIN products as P ON C.id = P.id;
+
 -- 3 RIGHT JOIN: возвращает все записи из правой таблицы и соответствующие записи из левой
 -- таблицы.
 SELECT users.firstname, users.lastname, users.email, messages.from_user_id, messages.to_user_id, messages.body, messages.created_at
 FROM users
 RIGHT JOIN messages ON users.id = messages.from_user_id;
+
+SELECT U.firstname, U.lastname, U.email, P.gender, P.birthday, P.photo_id, P.hometown
+FROM users AS U
+RIGHT JOIN `profiles` as P ON U.id = P.user_id;
+
+SELECT C.cnum, C.cname, C.city, C.rating, C.snum, P.ProductName, P.ProductName, P.ProductCount, P.Price
+FROM customers AS C
+RIGHT JOIN products as P ON C.id = P.id;
 
 -- 4. CROSS JOIN: возвращает все записи из обеих таблиц
 
