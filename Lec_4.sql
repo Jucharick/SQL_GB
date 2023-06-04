@@ -255,7 +255,14 @@ SELECT messages.from_user_id, users.firstname, users.lastname, users.email, mess
 FROM users
 JOIN messages ON users.id = messages.from_user_id;
 
+SELECT C.cnum, C.cname, C.city, C.rating, C.snum, P.ProductName, P.ProductName, P.ProductCount, P.Price
+FROM customers AS C
+JOIN products as P ON C.id = P.id;
+# в данном случае выборка при LEFT JOIN будет такая же
+
 -- 2. LEFT JOIN: возвращает все записи из левой таблицы и соответствующие записи из правой
+# LEFT JOIN = LEFT OUTER JOIN
+
 SELECT users.firstname, users.lastname, users.email, messages.from_user_id, messages.to_user_id, messages.body, messages.created_at
 FROM users
 LEFT JOIN messages ON users.id = messages.from_user_id;
@@ -266,6 +273,8 @@ LEFT JOIN products as P ON C.id = P.id;
 
 -- 3 RIGHT JOIN: возвращает все записи из правой таблицы и соответствующие записи из левой
 -- таблицы.
+# RIGHT JOIN = RIGHT OUTER JOIN
+
 SELECT users.firstname, users.lastname, users.email, messages.from_user_id, messages.to_user_id, messages.body, messages.created_at
 FROM users
 RIGHT JOIN messages ON users.id = messages.from_user_id;
@@ -278,6 +287,17 @@ SELECT C.cnum, C.cname, C.city, C.rating, C.snum, P.ProductName, P.ProductName, 
 FROM customers AS C
 RIGHT JOIN products as P ON C.id = P.id;
 
--- 4. CROSS JOIN: возвращает все записи из обеих таблиц
+-- 4. FULL JOIN - напрямую выполнить невозможно, делаем через UNION
+SELECT C.cnum, C.cname, C.city, C.rating, C.snum, P.ProductName, P.ProductName, P.ProductCount, P.Price
+FROM customers AS C
+LEFT JOIN products as P ON C.id = P.id
+UNION All -- UNION All для того, чтобы не удалялись строчки - дубликаты
+SELECT C.cnum, C.cname, C.city, C.rating, C.snum, P.ProductName, P.ProductName, P.ProductCount, P.Price
+FROM customers AS C
+RIGHT JOIN products as P ON C.id = P.id;
+# в данном случае выборка при RIGHT JOIN будет такая же
 
+-- 5. CROSS JOIN: возвращает все записи из обеих таблиц
+-- Объединение каждой строки левой_таблицы со всеми строками правой_таблицы. Этот вид соединения
+-- иногда называют декартовым произведением.
 
