@@ -59,7 +59,7 @@ VALUES
     (5, "Вебов", 45000),
     (6, "Шарпов", 30000),
     (7, "Шарпов", 40000),
-    (8, "Питошин", 30000);
+    (8, "Питошин", 30000);;
     
 
 CREATE TABLE IF NOT EXISTS lesson
@@ -187,3 +187,4 @@ SELECT id
 FROM teacher -- id = 1 - 8 (первые 8 строчек - id из таблицы teacher)
 UNION ALL
 SELECT teacher_id
+FROM lesson; -- id = 1-4
