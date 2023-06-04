@@ -246,4 +246,9 @@ insert into test_b(id) values
 (30),
 (50);
 
+SELECT a.*, b.id AS 'test_b(id)'
+FROM test_a AS a
+LEFT JOIN test_b AS b 
+ON a.id = b.id
+WHERE b.id IS NULL;
 
