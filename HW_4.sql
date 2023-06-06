@@ -1,18 +1,16 @@
 CREATE DATABASE home_work_4;
 USE home_work_4;
 
-
 -- Создание таблиц
 
 CREATE TABLE  AUTO 
 (       
-	REGNUM VARCHAR(10) PRIMARY KEY, 
-	MARK VARCHAR(10), 
-	COLOR VARCHAR(15),
-	RELEASEDT DATE, 
-	PHONENUM VARCHAR(15)
+REGNUM VARCHAR(10) PRIMARY KEY, 
+MARK VARCHAR(10), 
+COLOR VARCHAR(15),
+RELEASEDT DATE, 
+PHONENUM VARCHAR(15)
 );
-
 
  -- AUTO
 INSERT INTO AUTO (REGNUM, MARK,	COLOR, RELEASEDT, PHONENUM )
@@ -79,7 +77,8 @@ WHERE b.id IS NULL;
 
 -- Дополнительное задание
 -- Необходимо преобразовать поля таблицы к типу DATETIME, сохранив введеные ранее значения.
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE IF NOT EXISTS orders 
+(
 onum INT NOT NULL,
 amt DECIMAL(7,2) NOT NULL,
 odate VARCHAR(10) NOT NULL,
