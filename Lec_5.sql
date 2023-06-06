@@ -65,16 +65,43 @@ SELECT * FROM staff;;
 SELECT first_name, 
 	   post,
 	   salary,
-	   sum(salary) OVER() AS Total
+	   sum(salary) OVER() AS Total -- суммируется по всей таблице
 FROM staff;;
 
 SELECT first_name, 
 	   post,
 	   salary,
-	   sum(salary) OVER(PARTITION BY post) AS Total
+	   sum(salary) OVER(PARTITION BY post) AS Total -- суммируется внутри блока post
 FROM staff;;
 
 -- PARTITION BY - группировка
+
+
+/*
+ROWS и RANGE
+
+UNBOUNDED PRECEDING — указывает, что окно
+начинается с первой строки группы;
+
+UNBOUNDED FOLLOWING – с помощью данной
+инструкции можно указать, что окно заканчивается на
+последней строке группы;
+
+CURRENT ROW – инструкция указывает, что окно
+начинается или заканчивается на текущей строке;
+
+BETWEEN «граница окна» AND «граница окна» —
+указывает нижнюю и верхнюю границу окна;
+
+«Значение» PRECEDING – определяет число строк
+перед текущей строкой (не допускается в
+предложении RANGE).;
+
+«Значение» FOLLOWING — определяет число строк
+после текущей строки (не допускается в предложении
+RANGE).
+ */
+ 
 
 
 
