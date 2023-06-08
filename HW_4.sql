@@ -119,3 +119,25 @@ DESC orders_new;;
 SELECT onum, amt, monthname(odate)
 FROM orders_new;;
 
+-- вариант преподавателя 
+SELECT * FROM orders;
+
+ALTER TABLE orders
+  ADD COLUMN odate_correct DATE;
+    
+UPDATE orders
+    SET odate_correct = STR_TO_DATE(odate, '%d/%m/%Y'); -- STR_TO_DATE преобразует строку в дату
+    
+SELECT * FROM orders;
+
+
+# ВАРИАНТ 2
+SELECT STR_TO_DATE(odate, '%d/%m/%Y') AS DATE FROM orders;
+
+UPDATE orders SET 
+  odate = STR_TO_DATE(odate, '%d/%m/%Y');
+  
+SELECT * FROM orders;
+
+ALTER TABLE orders 
+  CHANGE odate odate DATETIME DEFAULT CURRENT_TIMESTAMP;
