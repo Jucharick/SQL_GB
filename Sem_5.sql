@@ -139,10 +139,10 @@ WHERE count_revisions != (SELECT MAX(count_revisions) FROM Table_Rev)
 Уже сложнее. Именно поэтому, попробуйте воспользоваться
 оконной функцией */
 
-	SELECT 
-	  * , 
-      DENSE_RANK() OVER(PARTITION BY tb ORDER BY count_revisions DESC) ds
-	FROM Table_Rev
+SELECT 
+  * , 
+  DENSE_RANK() OVER(PARTITION BY tb ORDER BY count_revisions DESC) ds
+FROM Table_Rev
 
 
 With T_R AS
