@@ -240,8 +240,8 @@ USING через запятую в том порядке, в котором он
 
 -- Хранимые процедуры и функции
 
-DELIMITER //;
-SELECT VERSION()//
+DELIMITER //
+SELECT VERSION() //
 
 DELIMITER ;
 SELECT VERSION();
