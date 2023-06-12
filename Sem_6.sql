@@ -46,7 +46,6 @@ SELECT * FROM accounts;
 COMMIT;
 
 
-
 -- ЗАДАНИЕ 2
 -- Мы можем и самостоятельно отменять транзакции.
 START TRANSACTION;
