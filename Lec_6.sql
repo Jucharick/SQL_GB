@@ -394,7 +394,6 @@ REPEAT
 SELECT NOW();
 SET i = i - 1;
 UNTIL i <= 0
-Курс базы данных и SQL. Лекция 6 21
 END REPEAT;
 END//
 CALL repeat_cycle()//
